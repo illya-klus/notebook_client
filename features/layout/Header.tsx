@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useAuthStore } from "../auth/store/useAuthStore";
+import { usePathname } from "next/navigation";
 
 const Links = [
     { name: "Home", to: "/" },
@@ -22,7 +23,8 @@ export const Header = () => {
                         <Link
                             key={i}
                             href={link.to}
-                            className="text-sm text-zinc-400 transition hover:text-white"
+                            className={"text-sm text-zinc-400 transition hover:text-white"}
+
                         >
                             {link.name}
                         </Link>
@@ -36,6 +38,8 @@ export const Header = () => {
 };
 
 const LoginBtnsArea = () => {
+    const pathname = usePathname();
+
     const user = useAuthStore((state) => state.user);
     const isAuthed = useAuthStore((state) => state.isAuthed);
 
@@ -55,21 +59,32 @@ const LoginBtnsArea = () => {
             </div>
         );
 
+    const isLogin = pathname === "/auth/login";
+    const isRegister = pathname === "/auth/register";
+
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center rounded-xl border border-zinc-800 bg-zinc-900 p-1">
+
             <Link
                 href="/auth/login"
-                className="rounded-lg px-3 py-1 text-sm text-zinc-300 transition hover:bg-zinc-800 hover:text-white"
+                className={`px-3 py-1 text-sm rounded-lg transition ${isLogin
+                    ? "bg-white text-black"
+                    : "text-zinc-400 hover:text-white"
+                    }`}
             >
                 Login
             </Link>
 
             <Link
                 href="/auth/register"
-                className="rounded-lg bg-white px-3 py-1 text-sm text-black transition hover:bg-zinc-200"
+                className={`px-3 py-1 text-sm rounded-lg transition ${isRegister
+                    ? "bg-white text-black"
+                    : "text-zinc-400 hover:text-white"
+                    }`}
             >
                 Register
             </Link>
+
         </div>
     );
 };
