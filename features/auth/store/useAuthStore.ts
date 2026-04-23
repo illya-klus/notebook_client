@@ -55,9 +55,9 @@ export const useAuthStore = create<UserStore>()(
                 } catch (e: any) {
                     let message;
                     if(e.response === undefined) message = "Network or server problem"
-                    else{
+                    else {
                         if (e.response.status === 409) message = "User with this email exists";
-                        if (e.response.status = 400) message = "Wrong email or password";
+                        else if (e.response.status === 400) message = "Wrong email or password";
                         else message = "Something went wrong";
                     }
 
@@ -88,7 +88,7 @@ export const useAuthStore = create<UserStore>()(
                     if(e.response === undefined) message = "Network or server problem"
                     else{
                         if (e.response.status === 409) message = "User with this email exists";
-                        if (e.response.status = 400) message = "Wrong email or password";
+                        else if (e.response.status === 400) message = "Wrong email or password";
                         else message = "Something went wrong";
                     }
                     return {

@@ -42,6 +42,7 @@ const LoginBtnsArea = () => {
 
     const user = useAuthStore((state) => state.user);
     const isAuthed = useAuthStore((state) => state.isAuthed);
+    const { logout } = useAuthStore();
 
     if (isAuthed)
         return (
@@ -53,7 +54,10 @@ const LoginBtnsArea = () => {
                     </p>
                 </div>
 
-                <button className="rounded-lg bg-zinc-800 px-3 py-1 text-sm text-white transition hover:bg-zinc-700">
+                <button
+                    onClick={logout}
+                    className="rounded-lg bg-zinc-800 px-3 py-1 text-sm text-white transition hover:bg-zinc-700"
+                >
                     Logout
                 </button>
             </div>
