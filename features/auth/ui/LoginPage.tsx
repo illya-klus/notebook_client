@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useLogin } from "../hooks/useLogin";
+import { useErrorModal } from "@/shared/ErrorModal/useErrorModal";
+import { ErrorModal } from "@/shared/ErrorModal/ErrorModal";
 
 export default function LoginPage() {
     const { handleLogin, errors, serverError, loading } = useLogin();
@@ -10,8 +12,12 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const { open } = useErrorModal(serverError ?? "", 3000);
+
     return (
         <div className="min-h-screen bg-zinc-950 text-white flex items-center justify-center px-4">
+            <ErrorModal message={serverError ?? ""} open={open} />
+
             <div className="w-full max-w-md">
 
                 <div className="border border-zinc-800 bg-zinc-900/40 backdrop-blur-xl rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl">
